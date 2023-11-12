@@ -66,6 +66,7 @@ keymap = [
 	{ on = [ "<C-s>" ],     exec = "search none",                                          desc = "Cancel the ongoing search" },
 	{ on = [ "z" ],         exec = "jump zoxide",                                          desc = "Jump to a directory using zoxide" },
 	{ on = [ "Z" ],         exec = "jump fzf",                                             desc = "Jump to a directory, or reveal a file using fzf" },
+    { on = [ "<C-t>" ],     exec = '''shell "$SHELL" --block --confirm''',                 desc = "Open shell here" },
 
 	# Linemode
 	{ on = [ "m", "s" ], exec = "linemode size",        desc = "Set linemode to size" },

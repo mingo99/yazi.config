@@ -1,31 +1,35 @@
-# vim:fileencoding=utf-8:foldmethod=marker
+# vim:fileencoding=utf-8:foldmethod=marke# vim:fileencoding=utf-8:foldmethod=marker
 
 # : Manager {{{
 
 [manager]
-cwd = { fg = "#94e2d5" }
+cwd = { fg = "cyan" }
 
 # Hovered
-hovered         = { fg = "#1e1e2e", bg = "#89b4fa" }
+hovered         = { fg = "black", bg = "lightblue" }
 preview_hovered = { underline = true }
 
 # Find
-find_keyword  = { fg = "#f9e2af", italic = true }
-find_position = { fg = "#f5c2e7", bg = "reset", italic = true }
+find_keyword  = { fg = "yellow", italic = true }
+find_position = { fg = "magenta", bg = "reset", italic = true }
 
 # Marker
-marker_selected = { fg = "#a6e3a1", bg = "#a6e3a1" }
-marker_copied   = { fg = "#f9e2af", bg = "#f9e2af" }
-marker_cut      = { fg = "#f38ba8", bg = "#f38ba8" }
+marker_selected = { fg = "lightgreen",  bg = "lightgreen" }
+marker_copied   = { fg = "lightyellow", bg = "lightyellow" }
+marker_cut      = { fg = "lightred",    bg = "lightred" }
 
 # Tab
-tab_active   = { fg = "#1e1e2e", bg = "#89b4fa" }
-tab_inactive = { fg = "#cdd6f4", bg = "#45475a" }
+tab_active   = { fg = "black", bg = "lightblue" }
+tab_inactive = { fg = "white", bg = "darkgray" }
 tab_width    = 1
 
 # Border
-border_symbol = " "
-border_style  = { fg = "#7f849c" }
+border_symbol = "│"
+border_style  = { fg = "gray" }
+
+# Offset
+folder_offset  = [ 1, 0, 1, 0 ]
+preview_offset = [ 1, 1, 1, 1 ]
 
 # Highlighting
 syntect_theme = ""
@@ -38,35 +42,24 @@ syntect_theme = ""
 [status]
 separator_open  = ""
 separator_close = ""
-separator_style = { fg = "#45475a", bg = "#45475a" }
+separator_style = { fg = "darkgray", bg = "darkgray" }
 
 # Mode
-mode_normal = { fg = "#1e1e2e", bg = "#89b4fa", bold = true }
-mode_select = { fg = "#1e1e2e", bg = "#a6e3a1", bold = true }
-mode_unset  = { fg = "#1e1e2e", bg = "#f2cdcd", bold = true }
+mode_normal = { fg = "black", bg = "lightblue", bold = true }
+mode_select = { fg = "black", bg = "lightgreen", bold = true }
+mode_unset  = { fg = "black", bg = "lightmagenta", bold = true }
 
 # Progress
-progress_label  = { fg = "#ffffff", bold = true }
-progress_normal = { fg = "#89b4fa", bg = "#45475a" }
-progress_error  = { fg = "#f38ba8", bg = "#45475a" }
+progress_label  = { bold = true }
+progress_normal = { fg = "blue", bg = "black" }
+progress_error  = { fg = "red", bg = "black" }
 
 # Permissions
-permissions_t = { fg = "#89b4fa" }
-permissions_r = { fg = "#f9e2af" }
-permissions_w = { fg = "#f38ba8" }
-permissions_x = { fg = "#a6e3a1" }
-permissions_s = { fg = "#7f849c" }
-
-# : }}}
-
-
-# : Input {{{
-
-[input]
-border   = { fg = "#89b4fa" }
-title    = {}
-value    = {}
-selected = { reversed = true }
+permissions_t = { fg = "lightgreen" }
+permissions_r = { fg = "lightyellow" }
+permissions_w = { fg = "lightred" }
+permissions_x = { fg = "lightcyan" }
+permissions_s = { fg = "darkgray" }
 
 # : }}}
 
@@ -74,9 +67,35 @@ selected = { reversed = true }
 # : Select {{{
 
 [select]
-border   = { fg = "#89b4fa" }
-active   = { fg = "#f5c2e7" }
+border   = { fg = "blue" }
+active   = { fg = "magenta" }
 inactive = {}
+
+# : }}}
+
+
+# : Input {{{
+
+[input]
+border   = { fg = "blue" }
+title    = {}
+value    = {}
+selected = { reversed = true }
+
+# : }}}
+
+
+# : Completion {{{
+
+[completion]
+border   = { fg = "blue" }
+active   = { bg = "darkgray" }
+inactive = {}
+
+# Icons
+icon_file    = ""
+icon_folder  = ""
+icon_command = ""
 
 # : }}}
 
@@ -84,7 +103,7 @@ inactive = {}
 # : Tasks {{{
 
 [tasks]
-border  = { fg = "#89b4fa" }
+border  = { fg = "blue" }
 title   = {}
 hovered = { underline = true }
 
@@ -94,12 +113,12 @@ hovered = { underline = true }
 # : Which {{{
 
 [which]
-mask            = { bg = "#313244" }
-cand            = { fg = "#94e2d5" }
-rest            = { fg = "#9399b2" }
-desc            = { fg = "#f5c2e7" }
+mask            = { bg = "black" }
+cand            = { fg = "lightcyan" }
+rest            = { fg = "darkgray" }
+desc            = { fg = "magenta" }
 separator       = "  "
-separator_style = { fg = "#585b70" }
+separator_style = { fg = "darkgray" }
 
 # : }}}
 
@@ -107,11 +126,11 @@ separator_style = { fg = "#585b70" }
 # : Help {{{
 
 [help]
-on      = { fg = "#f5c2e7" }
-exec    = { fg = "#94e2d5" }
-desc    = { fg = "#9399b2" }
-hovered = { bg = "#585b70", bold = true }
-footer  = { fg = "#45475a", bg = "#cdd6f4" }
+on      = { fg = "magenta" }
+exec    = { fg = "cyan" }
+desc    = { fg = "gray" }
+hovered = { bg = "darkgray", bold = true }
+footer  = { fg = "black", bg = "white" }
 
 # : }}}
 
@@ -122,24 +141,119 @@ footer  = { fg = "#45475a", bg = "#cdd6f4" }
 
 rules = [
 	# Images
-	{ mime = "image/*", fg = "#94e2d5" },
+	{ mime = "image/*", fg = "cyan" },
 
 	# Videos
-	{ mime = "video/*", fg = "#f9e2af" },
-	{ mime = "audio/*", fg = "#f9e2af" },
+	{ mime = "video/*", fg = "yellow" },
+	{ mime = "audio/*", fg = "yellow" },
 
 	# Archives
-	{ mime = "application/zip",             fg = "#f5c2e7" },
-	{ mime = "application/gzip",            fg = "#f5c2e7" },
-	{ mime = "application/x-tar",           fg = "#f5c2e7" },
-	{ mime = "application/x-bzip",          fg = "#f5c2e7" },
-	{ mime = "application/x-bzip2",         fg = "#f5c2e7" },
-	{ mime = "application/x-7z-compressed", fg = "#f5c2e7" },
-	{ mime = "application/x-rar",           fg = "#f5c2e7" },
+	{ mime = "application/zip",             fg = "magenta" },
+	{ mime = "application/gzip",            fg = "magenta" },
+	{ mime = "application/x-tar",           fg = "magenta" },
+	{ mime = "application/x-bzip",          fg = "magenta" },
+	{ mime = "application/x-bzip2",         fg = "magenta" },
+	{ mime = "application/x-7z-compressed", fg = "magenta" },
+	{ mime = "application/x-rar",           fg = "magenta" },
 
 	# Fallback
-	{ name = "*", fg = "#cdd6f4" },
-	{ name = "*/", fg = "#89b4fa" }
+	# { name = "*", fg = "white" },
+	{ name = "*/", fg = "blue" }
 ]
 
-# : }}} : }}} : }}} : }}}
+[icons]
+
+"Desktop/"     = ""
+"Documents/"   = ""
+"Downloads/"   = ""
+"Pictures/"    = ""
+"Music/"       = ""
+"Movies/"      = ""
+"Videos/"      = ""
+"Public/"      = ""
+"Library/"     = ""
+"Development/" = ""
+".config/"     = ""
+
+# Git
+".git/"          = ""
+".gitignore"     = ""
+".gitmodules"    = ""
+".gitattributes" = ""
+
+# Dotfiles
+".DS_Store"    = ""
+".bashrc"      = ""
+".bashprofile" = ""
+".zshrc"       = ""
+".zshenv"      = ""
+".zprofile"    = ""
+".vimrc"       = ""
+
+# Text
+"*.txt" = ""
+"*.md"  = ""
+
+# Archives
+"*.zip" = ""
+"*.tar" = ""
+"*.gz"  = ""
+"*.7z"  = ""
+
+# Audio
+"*.mp3"  = ""
+"*.flac" = ""
+"*.wav"  = ""
+
+# Movies
+"*.mp4" = ""
+"*.mkv" = ""
+"*.avi" = ""
+"*.mov" = ""
+
+# Images
+"*.jpg"  = ""
+"*.jpeg" = ""
+"*.png"  = ""
+"*.gif"  = ""
+"*.webp" = ""
+"*.avif" = ""
+"*.bmp"  = ""
+"*.ico"  = ""
+"*.svg"  = ""
+
+# Programming
+"*.c"     = ""
+"*.cpp"   = ""
+"*.h"     = ""
+"*.hpp"   = ""
+"*.rs"    = ""
+"*.go"    = ""
+"*.py"    = ""
+"*.js"    = ""
+"*.ts"    = ""
+"*.tsx"   = ""
+"*.jsx"   = ""
+"*.rb"    = ""
+"*.php"   = ""
+"*.java"  = ""
+"*.sh"    = ""
+"*.fish"  = ""
+"*.swift" = ""
+"*.vim"   = ""
+"*.lua"   = ""
+"*.html"  = ""
+"*.css"   = ""
+"*.scss"  = ""
+"*.json"  = ""
+"*.toml"  = ""
+"*.yml"   = ""
+"*.yaml"  = ""
+"*.ini"   = ""
+"*.conf"  = ""
+
+# Default
+"*"  = ""
+"*/" = ""
+
+# : }}}
