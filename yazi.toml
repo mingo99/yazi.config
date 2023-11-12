@@ -1,12 +1,10 @@
 [manager]
 layout         = [ 2, 4, 4 ]
-folder_offset  = [ 2, 0, 2, 0 ]
-preview_offset = [ 2, 1, 2, 1 ]
 sort_by        = "natural"
 sort_sensitive = true
 sort_reverse   = true
 sort_dir_first = true
-linemode       = "mtime"
+linemode       = "size"
 show_hidden    = true
 show_symlink   = true
 
