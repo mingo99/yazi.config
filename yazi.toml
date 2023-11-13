@@ -1,11 +1,11 @@
 [manager]
-layout         = [ 2, 4, 4 ]
+layout         = [ 3, 6, 8 ]
 sort_by        = "natural"
 sort_sensitive = true
 sort_reverse   = true
 sort_dir_first = true
 linemode       = "size"
-show_hidden    = true
+show_hidden    = false
 show_symlink   = true
 
 [preview]

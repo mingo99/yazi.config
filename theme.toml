@@ -3,10 +3,10 @@
 # : Manager {{{
 
 [manager]
-cwd = { fg = "cyan" }
+cwd = { fg = "#87afff" }
 
 # Hovered
-hovered         = { fg = "black", bg = "lightblue" }
+hovered         = { fg = "#262626", bg = "#87afff" }
 preview_hovered = { underline = false }
 
 # Find
@@ -14,18 +14,18 @@ find_keyword  = { fg = "yellow", italic = true }
 find_position = { fg = "magenta", bg = "reset", italic = true }
 
 # Marker
-marker_selected = { fg = "lightgreen",  bg = "lightgreen" }
-marker_copied   = { fg = "lightyellow", bg = "lightyellow" }
-marker_cut      = { fg = "lightred",    bg = "lightred" }
+marker_selected = { fg = "#afd75f",  bg = "#afd75f" }
+marker_copied   = { fg = "#d7af5f", bg = "#d7af5f" }
+marker_cut      = { fg = "#ff8787", bg = "#ff8787" }
 
 # Tab
-tab_active   = { fg = "black", bg = "lightblue" }
-tab_inactive = { fg = "white", bg = "darkgray" }
+tab_active   = { fg = "#262626", bg = "#87afff" }
+tab_inactive = { fg = "white", bg = "#4e4e4e" }
 tab_width    = 1
 
 # Border
 border_symbol = "│"
-border_style  = { fg = "gray" }
+border_style  = { fg = "#afd7ff" }
 
 # Offset
 folder_offset  = [ 2, 0, 2, 0 ]
@@ -42,12 +42,12 @@ syntect_theme = ""
 [status]
 separator_open  = ""
 separator_close = ""
-separator_style = { fg = "darkgray", bg = "darkgray" }
+separator_style = { fg = "#4e4e4e", bg = "#4e4e4e" }
 
 # Mode
-mode_normal = { fg = "black", bg = "lightblue", bold = true }
-mode_select = { fg = "black", bg = "lightgreen", bold = true }
-mode_unset  = { fg = "black", bg = "lightmagenta", bold = true }
+mode_normal = { fg = "#262626", bg = "#afd7ff", bold = true }
+mode_select = { fg = "#262626", bg = "#afd75f", bold = true }
+mode_unset  = { fg = "#262626", bg = "#af87ff", bold = true }
 
 # Progress
 progress_label  = { bold = true }
@@ -55,11 +55,11 @@ progress_normal = { fg = "blue", bg = "black" }
 progress_error  = { fg = "red", bg = "black" }
 
 # Permissions
-permissions_t = { fg = "lightgreen" }
-permissions_r = { fg = "lightyellow" }
-permissions_w = { fg = "lightred" }
-permissions_x = { fg = "lightcyan" }
-permissions_s = { fg = "darkgray" }
+permissions_t = { fg = "#afd75f" }
+permissions_r = { fg = "#d7af5f" }
+permissions_w = { fg = "#ff8787" }
+permissions_x = { fg = "#87d7ff" }
+permissions_s = { fg = "#4e4e4e" }
 
 # : }}}
 
@@ -67,7 +67,7 @@ permissions_s = { fg = "darkgray" }
 # : Select {{{
 
 [select]
-border   = { fg = "blue" }
+border   = { fg = "cyan" }
 active   = { fg = "magenta" }
 inactive = {}
 
@@ -77,7 +77,7 @@ inactive = {}
 # : Input {{{
 
 [input]
-border   = { fg = "blue" }
+border   = { fg = "cyan" }
 title    = {}
 value    = {}
 selected = { reversed = true }
@@ -88,7 +88,7 @@ selected = { reversed = true }
 # : Completion {{{
 
 [completion]
-border   = { fg = "blue" }
+border   = { fg = "cyan" }
 active   = { bg = "darkgray" }
 inactive = {}
 
@@ -103,7 +103,7 @@ icon_command = ""
 # : Tasks {{{
 
 [tasks]
-border  = { fg = "blue" }
+border  = { fg = "cyan" }
 title   = {}
 hovered = { underline = true }
 
@@ -113,12 +113,15 @@ hovered = { underline = true }
 # : Which {{{
 
 [which]
-mask            = { bg = "black" }
+mask            = { bg = "#262626" }
+# cand            = { fg = "#87d7ff" }
+# rest            = { fg = "darkgray" }
+# desc            = { fg = "#af87ff" }
 cand            = { fg = "lightcyan" }
 rest            = { fg = "darkgray" }
 desc            = { fg = "magenta" }
 separator       = "  "
-separator_style = { fg = "darkgray" }
+separator_style = { fg = "darkgray", bold = true }
 
 # : }}}
 
@@ -126,11 +129,11 @@ separator_style = { fg = "darkgray" }
 # : Help {{{
 
 [help]
-on      = { fg = "magenta" }
-exec    = { fg = "cyan" }
-desc    = { fg = "gray" }
-hovered = { bg = "darkgray", bold = true }
-footer  = { fg = "black", bg = "white" }
+on      = { fg = "#af87ff" }
+exec    = { fg = "#87d7ff" }
+desc    = { fg = "#afafd7" }
+hovered = { bg = "#4e4e4e", bold = true }
+footer  = { fg = "#262626", bg = "white" }
 
 # : }}}
 
@@ -157,8 +160,8 @@ rules = [
 	{ mime = "application/x-rar",           fg = "magenta" },
 
 	# Fallback
-	# { name = "*", fg = "white" },
-	{ name = "*/", fg = "blue" }
+	{ name = "*", fg = "white" },
+	{ name = "*/", fg = "#87afff" }
 ]
 
 [icons]
