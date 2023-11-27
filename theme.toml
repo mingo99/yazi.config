@@ -32,7 +32,7 @@ folder_offset = [2, 0, 2, 0]
 preview_offset = [2, 1, 2, 1]
 
 # Highlighting
-syntect_theme = ""
+syntect_theme = "~/.config/bat/themes/TokyoNight.tmTheme"
 
 # : }}}
 
