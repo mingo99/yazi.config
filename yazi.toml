@@ -101,6 +101,19 @@ preloaders = [
   # PDF
   { mime = "application/pdf", run = "pdf" },
 ]
+
+prepend_previewers = [
+  # Archive previewer
+  { mime = "application/*zip", run = "ouch" },
+  { mime = "application/gzip", run = "ouch" },
+  { mime = "application/x-tar", run = "ouch" },
+  { mime = "application/x-bzip", run = "ouch" },
+  { mime = "application/x-bzip2", run = "ouch" },
+  { mime = "application/x-7z-compressed", run = "ouch" },
+  { mime = "application/x-rar", run = "ouch" },
+  { mime = "application/x-xz", run = "ouch" },
+]
+
 previewers = [
   { name = "*/", run = "folder", sync = true },
   # Code
@@ -118,14 +131,14 @@ previewers = [
   # PDF
   { mime = "application/pdf", run = "pdf" },
   # Archive
-  { mime = "application/zip", run = "archive" },
-  { mime = "application/gzip", run = "archive" },
-  { mime = "application/x-tar", run = "archive" },
-  { mime = "application/x-bzip", run = "archive" },
-  { mime = "application/x-bzip2", run = "archive" },
-  { mime = "application/x-7z-compressed", run = "archive" },
-  { mime = "application/x-rar", run = "archive" },
-  { mime = "application/xz", run = "archive" },
+  # { mime = "application/zip", run = "archive" },
+  # { mime = "application/gzip", run = "archive" },
+  # { mime = "application/x-tar", run = "archive" },
+  # { mime = "application/x-bzip", run = "archive" },
+  # { mime = "application/x-bzip2", run = "archive" },
+  # { mime = "application/x-7z-compressed", run = "archive" },
+  # { mime = "application/x-rar", run = "archive" },
+  # { mime = "application/xz", run = "archive" },
   # Fallback
   { name = "*", run = "file" },
 ]
