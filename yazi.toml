@@ -3,21 +3,25 @@
 "$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
 
 [manager]
-ratio = [3, 6, 8]
-sort_by = "natural"
-sort_sensitive = true
+ratio = [1, 4, 3]
+sort_by = "alphabetical"
+sort_sensitive = false
 sort_reverse = false
 sort_dir_first = true
-linemode = "size"
+sort_translit = false
+linemode = "none"
 show_hidden = false
 show_symlink = true
 scrolloff = 5
+mouse_events = ["click", "scroll"]
+# title_format = "Yazi: {cwd}"
 
 [preview]
 tab_size = 2
 max_width = 600
 max_height = 900
 cache_dir = ""
+# image_delay = 30
 image_filter = "triangle"
 image_quality = 75
 sixel_fraction = 15
@@ -26,124 +30,108 @@ ueberzug_offset = [0, 0, 0, 0]
 
 [opener]
 edit = [
-  # editor
-  { run = 'nvim "$@"', block = true, for = "unix" },
-  { run = 'code "$@"', block = true, for = "unix" },
-  { run = 'code "%*"', orphan = true, for = "windows" },
+  { run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
+  { run = 'code %*', orphan = true, desc = "code", for = "windows" },
+  { run = 'code -w %*', block = true, desc = "code (block)", for = "windows" },
 ]
 open = [
-  # system app
-  { run = 'xdg-open "$@"', desc = "Open", for = "linux" },
+  { run = 'xdg-open "$1"', desc = "Open", for = "linux" },
   { run = 'open "$@"', desc = "Open", for = "macos" },
-  { run = 'start "%1"', orphan = true, desc = "Open", for = "windows" },
+  { run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
 ]
 reveal = [
-  # reveal
+  { run = 'xdg-open "$(dirname "$1")"', desc = "Reveal", for = "linux" },
   { run = 'open -R "$1"', desc = "Reveal", for = "macos" },
-  { run = 'explorer /select,%1', orphan = true, desc = "Reveal", for = "windows" },
-  { run = '''exiftool "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show EXIF", for = "unix" },
+  { run = 'explorer /select,"%1"', orphan = true, desc = "Reveal", for = "windows" },
+  { run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 ]
 extract = [
-  # extract
-  { run = 'unar "$1"', desc = "Extract here", for = "unix" },
-  { run = 'unar "%1"', desc = "Extract here", for = "windows" },
+  { run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
+  { run = 'ya pub extract --list %*', desc = "Extract here", for = "windows" },
 ]
 play = [
-  # media
-  { run = 'mpv "$@"', orphan = true, for = "unix" },
-  { run = 'mpv "%1"', orphan = true, for = "windows" },
-  { run = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show media info", for = "unix" },
+  { run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
+  { run = 'mpv --force-window %*', orphan = true, for = "windows" },
+  { run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
 ]
 
 [open]
 rules = [
-  # rules for open file
+  # Folder
   { name = "*/", use = ["edit", "open", "reveal"] },
-
+  # Text
   { mime = "text/*", use = ["edit", "reveal"] },
+  # Image
   { mime = "image/*", use = ["open", "reveal"] },
-  { mime = "video/*", use = ["play", "reveal"] },
-  { mime = "audio/*", use = ["play", "reveal"] },
-  { mime = "inode/x-empty", use = ["edit", "reveal"] },
-
-  { mime = "application/json", use = ["edit", "reveal"] },
+  # Media
+  { mime = "{audio,video}/*", use = ["play", "reveal"] },
+  # Archive
+  { mime = "application/{,g}zip", use = ["extract", "reveal"] },
+  { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = ["extract", "reveal"] },
+  # JSON
+  { mime = "application/{json,x-ndjson}", use = ["edit", "reveal"] },
   { mime = "*/javascript", use = ["edit", "reveal"] },
-
-  { mime = "application/zip", use = ["extract", "reveal"] },
-  { mime = "application/gzip", use = ["extract", "reveal"] },
-  { mime = "application/x-tar", use = ["extract", "reveal"] },
-  { mime = "application/x-bzip", use = ["extract", "reveal"] },
-  { mime = "application/x-bzip2", use = ["extract", "reveal"] },
-  { mime = "application/x-7z-compressed", use = ["extract", "reveal"] },
-  { mime = "application/x-rar", use = ["extract", "reveal"] },
-  { mime = "application/xz", use = ["extract", "reveal"] },
-
-  { mime = "*", use = ["open", "reveal"] },
+  # Empty file
+  { mime = "inode/x-empty", use = ["edit", "reveal"] },
+  # Fallback
+  { name = "*", use = ["open", "reveal"] },
 ]
 
 [tasks]
-micro_workers = 5
-macro_workers = 10
+micro_workers = 10
+macro_workers = 25
 bizarre_retry = 5
-image_alloc = 536870912
+image_alloc = 536870912  # 512MB
 image_bound = [0, 0]
 suppress_preload = false
 
 [plugin]
 
+fetchers = [
+  # Mimetype
+  { id = "mime", name = "*", run = "mime", if = "!mime", prio = "high" },
+]
 preloaders = [
-  { name = "*", cond = "!mime", run = "mime", multi = true, prio = "high" },
   # Image
-  { mime = "image/vnd.djvu", run = "noop" },
+  { mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
   { mime = "image/*", run = "image" },
   # Video
   { mime = "video/*", run = "video" },
   # PDF
   { mime = "application/pdf", run = "pdf" },
+  # Font
+  { mime = "font/*", run = "font" },
+  { mime = "application/vnd.ms-opentype", run = "font" },
 ]
-
-prepend_previewers = [
-  # Archive previewer
-  { mime = "application/*zip", run = "ouch" },
-  { mime = "application/gzip", run = "ouch" },
-  { mime = "application/x-tar", run = "ouch" },
-  { mime = "application/x-bzip", run = "ouch" },
-  { mime = "application/x-bzip2", run = "ouch" },
-  { mime = "application/x-7z-compressed", run = "ouch" },
-  { mime = "application/x-rar", run = "ouch" },
-  { mime = "application/x-xz", run = "ouch" },
-]
-
 previewers = [
   { name = "*/", run = "folder", sync = true },
   # Code
   { mime = "text/*", run = "code" },
-  { mime = "*/xml", run = "code" },
-  { mime = "*/javascript", run = "code" },
-  { mime = "*/x-wine-extension-ini", run = "code" },
+  { mime = "*/{xml,javascript,x-wine-extension-ini}", run = "code" },
   # JSON
-  { mime = "application/json", run = "json" },
+  { mime = "application/{json,x-ndjson}", run = "json" },
   # Image
-  { mime = "image/vnd.djvu", run = "noop" },
+  { mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
   { mime = "image/*", run = "image" },
   # Video
   { mime = "video/*", run = "video" },
   # PDF
   { mime = "application/pdf", run = "pdf" },
   # Archive
-  # { mime = "application/zip", run = "archive" },
-  # { mime = "application/gzip", run = "archive" },
-  # { mime = "application/x-tar", run = "archive" },
-  # { mime = "application/x-bzip", run = "archive" },
-  # { mime = "application/x-bzip2", run = "archive" },
-  # { mime = "application/x-7z-compressed", run = "archive" },
-  # { mime = "application/x-rar", run = "archive" },
-  # { mime = "application/xz", run = "archive" },
+  { mime = "application/{,g}zip", run = "archive" },
+  { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar,iso9660-image}", run = "archive" },
+  # Font
+  { mime = "font/*", run = "font" },
+  { mime = "application/vnd.ms-opentype", run = "font" },
+  # Empty file
+  { mime = "inode/x-empty", run = "empty" },
   # Fallback
   { name = "*", run = "file" },
 ]
 
 [input]
+cursor_blink = false
+
 # cd
 cd_title = "Change directory:"
 cd_origin = "top-center"
@@ -158,16 +146,6 @@ create_offset = [0, 2, 50, 3]
 rename_title = "Rename:"
 rename_origin = "hovered"
 rename_offset = [0, 1, 50, 3]
-
-# trash
-trash_title = "Move {n} selected file{s} to trash? (y/N)"
-trash_origin = "top-center"
-trash_offset = [0, 2, 50, 3]
-
-# delete
-delete_title = "Delete {n} selected file{s} permanently? (y/N)"
-delete_origin = "top-center"
-delete_offset = [0, 2, 50, 3]
 
 # filter
 filter_title = "Filter:"
@@ -189,15 +167,28 @@ shell_title = ["Shell:", "Shell (block):"]
 shell_origin = "top-center"
 shell_offset = [0, 2, 50, 3]
 
-# overwrite
-overwrite_title = "Overwrite an existing file? (y/N)"
-overwrite_origin = "top-center"
-overwrite_offset = [0, 2, 50, 3]
-
-# quit
-quit_title = "{n} task{s} running, sure to quit? (y/N)"
-quit_origin = "top-center"
-quit_offset = [0, 2, 50, 3]
+# [confirm]
+# # trash
+# trash_title = "Trash {n} selected file{s}?"
+# trash_origin = "center"
+# trash_offset = [0, 0, 70, 20]
+#
+# # delete
+# delete_title = "Permanently delete {n} selected file{s}?"
+# delete_origin = "center"
+# delete_offset = [0, 0, 70, 20]
+#
+# # overwrite
+# overwrite_title = "Overwrite file?"
+# overwrite_content = "Will overwrite the following file:"
+# overwrite_origin = "center"
+# overwrite_offset = [0, 0, 50, 20]
+#
+# # quit
+# quit_title = "Quit?"
+# quit_content = "The following task is still running, are you sure you want to quit?"
+# quit_origin = "center"
+# quit_offset = [0, 0, 50, 20]
 
 [select]
 open_title = "Open with:"
@@ -208,8 +199,7 @@ open_offset = [0, 1, 50, 7]
 sort_by = "none"
 sort_sensitive = false
 sort_reverse = false
+sort_translit = false
 
 [log]
 enabled = false
-
-[headsup]

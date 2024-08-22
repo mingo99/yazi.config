@@ -1,3 +1,2 @@
 [formatting]
-align_entries = false
-array_auto_expand = false
+inline_table_expand = false
