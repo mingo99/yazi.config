@@ -153,7 +153,11 @@ keymap = [
 
 prepend_keymap = [
   { on = ['c', 'm'], run = "plugin chmod", desc = "Chmod on selected files" },
+  { on = "<Enter>", run = "plugin --sync smart-enter", desc = "Enter the child directory, or open the file" },
+  { on = "T", run = "plugin --sync hide-preview", desc = "Hide or show preview" },
+  { on = "M", run = "plugin --sync max-preview", desc = "Maximize or restore preview" },
 ]
+
 
 [tasks]
 
@@ -266,26 +270,29 @@ keymap = [
   { on = "<F1>", run = "help", desc = "Open help" },
 ]
 
-# [confirm]
-# keymap = [
-#   { on = "<Esc>", run = "close", desc = "Cancel the confirm" },
-#   { on = "<C-[>", run = "close", desc = "Cancel the confirm" },
-#   { on = "<C-c>", run = "close", desc = "Cancel the confirm" },
-#   { on = "<Enter>", run = "close --submit", desc = "Submit the confirm" },
-#
-#   { on = "n", run = "close", desc = "Cancel the confirm" },
-#   { on = "y", run = "close --submit", desc = "Submit the confirm" },
-#
-#   { on = "k", run = "arrow -1", desc = "Move cursor up" },
-#   { on = "j", run = "arrow 1", desc = "Move cursor down" },
-#
-#   { on = "<Up>", run = "arrow -1", desc = "Move cursor up" },
-#   { on = "<Down>", run = "arrow 1", desc = "Move cursor down" },
-#
-#   # Help
-#   { on = "~", run = "help", desc = "Open help" },
-#   { on = "<F1>", run = "help", desc = "Open help" },
-# ]
+prepend_keymap = [{ on = "<Esc>", run = "close", desc = "Cancel input" }]
+
+
+[confirm]
+keymap = [
+  { on = "<Esc>", run = "close", desc = "Cancel the confirm" },
+  { on = "<C-[>", run = "close", desc = "Cancel the confirm" },
+  { on = "<C-c>", run = "close", desc = "Cancel the confirm" },
+  { on = "<Enter>", run = "close --submit", desc = "Submit the confirm" },
+
+  { on = "n", run = "close", desc = "Cancel the confirm" },
+  { on = "y", run = "close --submit", desc = "Submit the confirm" },
+
+  { on = "k", run = "arrow -1", desc = "Move cursor up" },
+  { on = "j", run = "arrow 1", desc = "Move cursor down" },
+
+  { on = "<Up>", run = "arrow -1", desc = "Move cursor up" },
+  { on = "<Down>", run = "arrow 1", desc = "Move cursor down" },
+
+  # Help
+  { on = "~", run = "help", desc = "Open help" },
+  { on = "<F1>", run = "help", desc = "Open help" },
+]
 
 [completion]
 
