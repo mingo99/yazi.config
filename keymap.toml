@@ -154,7 +154,7 @@ keymap = [
 prepend_keymap = [
   { on = ['c', 'm'], run = "plugin chmod", desc = "Chmod on selected files" },
   { on = "<Enter>", run = "plugin --sync smart-enter", desc = "Enter the child directory, or open the file" },
-  { on = "T", run = "plugin --sync hide-preview", desc = "Hide or show preview" },
+  { on = "<A-p>", run = "plugin --sync hide-preview", desc = "Hide or show preview" },
   { on = "M", run = "plugin --sync max-preview", desc = "Maximize or restore preview" },
 ]
 

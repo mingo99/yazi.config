@@ -5,6 +5,7 @@ deps = [
   { use = "yazi-rs/plugins:chmod", rev = "b659791" },
   { use = "yazi-rs/plugins:max-preview", rev = "49137fe" },
   { use = "yazi-rs/plugins:hide-preview", rev = "49137fe" },
+  { use = "Reledia/miller", rev = "40e0265" },
 ]
 
 [flavor]
