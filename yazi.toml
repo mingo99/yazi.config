@@ -30,51 +30,51 @@ ueberzug_offset = [0, 0, 0, 0]
 
 [opener]
 edit = [
-  { run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
-  { run = 'code %*', orphan = true, desc = "code", for = "windows" },
-  { run = 'code -w %*', block = true, desc = "code (block)", for = "windows" },
+    { run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
+    { run = 'code %*', orphan = true, desc = "code", for = "windows" },
+    { run = 'code -w %*', block = true, desc = "code (block)", for = "windows" },
 ]
 open = [
-  { run = 'xdg-open "$1"', desc = "Open", for = "linux" },
-  { run = 'open "$@"', desc = "Open", for = "macos" },
-  { run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
+    { run = 'xdg-open "$1"', desc = "Open", for = "linux" },
+    { run = 'open "$@"', desc = "Open", for = "macos" },
+    { run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
 ]
 reveal = [
-  { run = 'xdg-open "$(dirname "$1")"', desc = "Reveal", for = "linux" },
-  { run = 'open -R "$1"', desc = "Reveal", for = "macos" },
-  { run = 'explorer /select,"%1"', orphan = true, desc = "Reveal", for = "windows" },
-  { run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
+    { run = 'xdg-open "$(dirname "$1")"', desc = "Reveal", for = "linux" },
+    { run = 'open -R "$1"', desc = "Reveal", for = "macos" },
+    { run = 'explorer /select,"%1"', orphan = true, desc = "Reveal", for = "windows" },
+    { run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 ]
 extract = [
-  { run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
-  { run = 'ya pub extract --list %*', desc = "Extract here", for = "windows" },
+    { run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
+    { run = 'ya pub extract --list %*', desc = "Extract here", for = "windows" },
 ]
 play = [
-  { run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
-  { run = 'mpv --force-window %*', orphan = true, for = "windows" },
-  { run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
+    { run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
+    { run = 'mpv --force-window %*', orphan = true, for = "windows" },
+    { run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
 ]
 
 [open]
 rules = [
-  # Folder
-  { name = "*/", use = ["edit", "open", "reveal"] },
-  # Text
-  { mime = "text/*", use = ["edit", "reveal"] },
-  # Image
-  { mime = "image/*", use = ["open", "reveal"] },
-  # Media
-  { mime = "{audio,video}/*", use = ["play", "reveal"] },
-  # Archive
-  { mime = "application/{,g}zip", use = ["extract", "reveal"] },
-  { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = ["extract", "reveal"] },
-  # JSON
-  { mime = "application/{json,x-ndjson}", use = ["edit", "reveal"] },
-  { mime = "*/javascript", use = ["edit", "reveal"] },
-  # Empty file
-  { mime = "inode/x-empty", use = ["edit", "reveal"] },
-  # Fallback
-  { name = "*", use = ["open", "reveal"] },
+    # Folder
+    { name = "*/", use = ["edit", "open", "reveal"] },
+    # Text
+    { mime = "text/*", use = ["edit", "reveal"] },
+    # Image
+    { mime = "image/*", use = ["open", "reveal"] },
+    # Media
+    { mime = "{audio,video}/*", use = ["play", "reveal"] },
+    # Archive
+    { mime = "application/{,g}zip", use = ["extract", "reveal"] },
+    { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = ["extract", "reveal"] },
+    # JSON
+    { mime = "application/{json,x-ndjson}", use = ["edit", "reveal"] },
+    { mime = "*/javascript", use = ["edit", "reveal"] },
+    # Empty file
+    { mime = "inode/x-empty", use = ["edit", "reveal"] },
+    # Fallback
+    { name = "*", use = ["open", "reveal"] },
 ]
 
 [tasks]
@@ -88,49 +88,47 @@ suppress_preload = false
 [plugin]
 
 fetchers = [
-  # Mimetype
-  { id = "mime", name = "*", run = "mime", if = "!mime", prio = "high" },
+    # Mimetype
+    { id = "mime", name = "*", run = "mime", if = "!mime", prio = "high" },
 ]
 preloaders = [
-  # Image
-  { mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
-  { mime = "image/*", run = "image" },
-  # Video
-  { mime = "video/*", run = "video" },
-  # PDF
-  { mime = "application/pdf", run = "pdf" },
-  # Font
-  { mime = "font/*", run = "font" },
-  { mime = "application/vnd.ms-opentype", run = "font" },
+    # Image
+    { mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
+    { mime = "image/*", run = "image" },
+    # Video
+    { mime = "video/*", run = "video" },
+    # PDF
+    { mime = "application/pdf", run = "pdf" },
+    # Font
+    { mime = "font/*", run = "font" },
+    { mime = "application/vnd.ms-opentype", run = "font" },
 ]
 previewers = [
-  { name = "*/", run = "folder", sync = true },
-  # Code
-  { mime = "text/*", run = "code" },
-  { mime = "*/{xml,javascript,x-wine-extension-ini}", run = "code" },
-  # JSON
-  { mime = "application/{json,x-ndjson}", run = "json" },
-  # Image
-  { mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
-  { mime = "image/*", run = "image" },
-  # Video
-  { mime = "video/*", run = "video" },
-  # PDF
-  { mime = "application/pdf", run = "pdf" },
-  # Archive
-  { mime = "application/{,g}zip", run = "archive" },
-  { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar,iso9660-image}", run = "archive" },
-  # Font
-  { mime = "font/*", run = "font" },
-  { mime = "application/vnd.ms-opentype", run = "font" },
-  # Empty file
-  { mime = "inode/x-empty", run = "empty" },
-  # Fallback
-  { name = "*", run = "file" },
+    { name = "*/", run = "folder", sync = true },
+    # Code
+    { mime = "text/*", run = "code" },
+    { mime = "*/{xml,javascript,x-wine-extension-ini}", run = "code" },
+    # JSON
+    { mime = "application/{json,x-ndjson}", run = "json" },
+    # Image
+    { mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
+    { mime = "image/*", run = "image" },
+    # Video
+    { mime = "video/*", run = "video" },
+    # PDF
+    { mime = "application/pdf", run = "pdf" },
+    # Archive
+    { mime = "application/{,g}zip", run = "archive" },
+    { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar,iso9660-image}", run = "archive" },
+    # Font
+    { mime = "font/*", run = "font" },
+    { mime = "application/vnd.ms-opentype", run = "font" },
+    # Empty file
+    { mime = "inode/x-empty", run = "empty" },
+    # Fallback
+    { name = "*", run = "file" },
 ]
-prepend_previewers = [
-    { mime = "text/csv", run = "miller"},
-]
+prepend_previewers = [{ mime = "text/csv", run = "miller" }]
 
 [input]
 cursor_blink = false
