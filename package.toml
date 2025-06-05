@@ -1,0 +1,44 @@
+[[plugin.deps]]
+use = "yazi-rs/plugins:lsar"
+rev = "4f1d0ae"
+hash = "34751ba89918a28adf977278a3429694"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "4f1d0ae"
+hash = "36c82bb433078e8e752351d961cac777"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:jump-to-char"
+rev = "4f1d0ae"
+hash = "72c66a0b3d60f8377eb9db5e1d8b60b2"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-enter"
+rev = "e4aaf43"
+hash = "c1a2739e9ef2d837030ccb4267be3ed1"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "55bf699"
+hash = "1f3dad061209081a6b04dd6ff2cb06c7"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "55bf699"
+hash = "f3853bbdd1da2fad09d059ab5464abfd"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:sudo-demo"
+rev = "55bf699"
+hash = "4fdfe71caf07f2ffae2ca157d06f43c1"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:vcs-files"
+rev = "55bf699"
+hash = "36405f8781fcaf33ceab24dffd5cea19"
+
+[[flavor.deps]]
+use = "mingo99/tokyonight"
+rev = "c0e07b7"
+hash = "be42a8e4f52bc7e7d6d12737e2e4449e"

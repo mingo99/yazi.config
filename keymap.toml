@@ -159,9 +159,12 @@ keymap = [
 prepend_keymap = [
     { on = ['c', 'm'], run = "plugin chmod", desc = "Chmod on selected files" },
     { on = "<Enter>", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
-    { on = "<A-p>", run = "plugin hide-preview", desc = "Hide or show preview" },
-    { on = "M", run = "plugin max-preview", desc = "Maximize or restore preview" },
+    { on = "<A-p>", run = "plugin toggle-pane min-preview", desc = "Hide or show preview pane" },
+    { on = "M", run = "plugin toggle-pane max-preview", desc = "Maximize or restore preview pane" },
     { on = "f", run = "plugin jump-to-char", desc = "Jump to char" },
+    { on = "<C-t>", run = "plugin sudo-demo", desc = "Use dudo" },
+    { on = ['g', 's'], run = "plugin vcs-files", desc = "Show git file changes" },
+
 ]
 
 [tasks]
@@ -323,7 +326,7 @@ keymap = [
     { on = "<F1>", run = "help", desc = "Open help" },
 ]
 
-[completion]
+[cmp]
 
 keymap = [
     { on = "<C-c>", run = "close", desc = "Cancel completion" },
